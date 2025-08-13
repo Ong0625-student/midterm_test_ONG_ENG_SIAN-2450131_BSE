@@ -7,7 +7,7 @@
 The program could not find the `GOOGLE_API_KEY` even though it was in the `.env` file.
 
 **LLM Assistance Used:**
-I check the code why `os.getenv("GOOGLE_API_KEY")` was not working and how to load `.env` files.
+I use General Chat LLM check the code why `os.getenv("GOOGLE_API_KEY")` was not working and how to load `.env` files.
 
 **Root Cause:**
 The code had a commented line `# os.environ[]` and did not use `load_dotenv()`, so environment variables were not loaded.
@@ -24,7 +24,7 @@ Error/Issue Observed:
 The program could not answer queries like "What's the weather like in Tokyo?" or "Calculate 5 * 3".
 
 **LLM Assistance Used:**
-I check the tools and which ones were missing.
+I use General Chat LLM check the tools and which ones were missing.
 
 **Root Cause:**
 Only FakeNewsSearchTool() was included. Weather and calculator tools were missing.
@@ -45,7 +45,7 @@ tools = [
 Even with tools added, the router did not process weather and calculator queries.
 
 **LLM Assistance Used:**
-I testing how to pass tools to ConversationRouter.
+I use General Chat LLM testing how to pass tools to ConversationRouter.
 
 **Root Cause:**
 The router was created with only llm, but it needed the tools too.
@@ -62,7 +62,7 @@ router = ConversationRouter(llm, tools=tools)
 If no GOOGLE_API_KEY was set, the program called run_mock_demo() and crashed.
 
 **LLM Assistance Used:**
-I testing how to fix this missing functions.
+I use General Chat LLM testing how to fix this missing functions.
 
 **Root Cause:**
 The function run_mock_demo() was not in the script or imported.
