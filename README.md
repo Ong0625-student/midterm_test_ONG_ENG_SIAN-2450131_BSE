@@ -53,7 +53,6 @@ The router was created with only llm, but it needed the tools too.
 **Fix Applied:**
 
 ```python
-Edit
 router = ConversationRouter(llm, tools=tools)
 ```
 
