@@ -15,12 +15,12 @@ load_dotenv()
 
 def run_demo():
     """Run a demonstration of the application features."""
-    print("🚀 LangChain Application Demo")
+    print(" LangChain Application Demo")
     print("=" * 40)
     
     # Check if Google API key is available
     if not os.getenv("GOOGLE_API_KEY"):
-        print("⚠️  No Google API key found. Using mock responses for demo.")
+        print("No Google API key found. Using mock responses for demo.")
         run_mock_demo()  # Make sure this function exists/imported
         return
     
@@ -49,7 +49,7 @@ def run_demo():
         "Hello! How are you doing today?"
     ]
     
-    print("\n🎯 Running demo queries...")
+    print("\n Running demo queries...")
     
     for i, query in enumerate(demo_queries, 1):
         print(f"\n--- Demo {i} ---")
@@ -63,3 +63,4 @@ def run_demo():
 
 if __name__ == "__main__":
     run_demo()
+
