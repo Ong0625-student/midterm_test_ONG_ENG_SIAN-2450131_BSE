@@ -70,7 +70,6 @@ The function run_mock_demo() was not in the script or imported.
 Solve:
 
 ```python
-Edit
 from mock_demo import run_mock_demo  # Add this if the function exists
 ```
 
