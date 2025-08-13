@@ -7,6 +7,8 @@ from pydantic import BaseModel, Field
 import datetime
 
 
+# ---------------- Existing Tools ---------------- #
+
 class WeatherSearchInput(BaseModel):
     """Input for weather search tool."""
     location: str = Field(description="The location to get weather for")
@@ -21,10 +23,8 @@ class FakeWeatherSearchTool(BaseTool):
     
     def _run(self, location: str) -> str:
         """Run the weather search tool."""
-        # Mock weather conditions
         conditions = ["sunny", "cloudy", "rainy", "snowy", "partly cloudy", "stormy"]
         temperatures = list(range(-10, 40))  # Celsius
-        
         condition = random.choice(conditions)
         temperature = random.choice(temperatures)
         humidity = random.randint(30, 90)
@@ -52,7 +52,7 @@ class FakeCalculatorTool(BaseTool):
     def _run(self, expression: str) -> str:
         """Run the calculator tool."""
         try:
-            result = eval(expression) + 1
+            result = eval(expression)  # Fixed: removed +1 to show correct result
             return f"The result of {expression} is {result}"
         except Exception as e:
             return f"Error calculating {expression}: {str(e)}"
@@ -72,7 +72,6 @@ class FakeNewsSearchTool(BaseTool):
     
     def _run(self, topic: str) -> str:
         """Run the news search tool."""
-        # Mock news headlines
         headlines = [
             f"Breaking: Major developments in {topic} industry",
             f"Experts discuss the future of {topic}",
@@ -80,8 +79,28 @@ class FakeNewsSearchTool(BaseTool):
             f"Local community responds to {topic} changes",
             f"Global impact of {topic} continues to grow"
         ]
-        
         selected_headlines = random.sample(headlines, 5)
-        
         return f"""Recent news about {topic}:
 {chr(10).join(f"• {headline}" for headline in selected_headlines)}"""
+
+
+# ---------------- Added a New Tool ---------------- #
+
+# Add Code Start
+class DateTimeInput(BaseModel):
+    """Input for date and time tool."""
+    location: str = Field(description="The location to get current date and time for")
+
+
+class FakeDateTimeTool(BaseTool):
+    """A mock date and time tool that returns the current date and time."""
+    
+    name: str = "date_time"
+    description: str = "Get current date and time for a specific location"
+    args_schema: type = DateTimeInput
+    
+    def _run(self, location: str) -> str:
+        """Run the date and time tool."""
+        now = datetime.datetime.now()
+        return f"Current date and time in {location}: {now.strftime('%Y-%m-%d %H:%M:%S')}"
+
