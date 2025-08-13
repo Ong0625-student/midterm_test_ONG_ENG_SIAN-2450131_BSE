@@ -6,19 +6,22 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from mock_tools import FakeWeatherSearchTool, FakeCalculatorTool, FakeNewsSearchTool
 from router import ConversationRouter
 
+# Load environment variables from .env file
+load_dotenv()  
+
+# Optional: make sure run_mock_demo is imported if used
+# from mock_demo import run_mock_demo   # Uncomment if this function exists
+
 
 def run_demo():
     """Run a demonstration of the application features."""
     print("🚀 LangChain Application Demo")
     print("=" * 40)
     
-    # Load environment variables
-    # os.environ[]
-    
-    # Check if API key is available
+    # Check if Google API key is available
     if not os.getenv("GOOGLE_API_KEY"):
         print("⚠️  No Google API key found. Using mock responses for demo.")
-        run_mock_demo()
+        run_mock_demo()  # Make sure this function exists/imported
         return
     
     # Initialize LLM
@@ -28,11 +31,15 @@ def run_demo():
         google_api_key=os.getenv("GOOGLE_API_KEY")
     )
     
-    # Initialize tools
-    tools = [ FakeNewsSearchTool()]
+    # Initialize all tools
+    tools = [
+        FakeNewsSearchTool(),
+        FakeWeatherSearchTool(),
+        FakeCalculatorTool()
+    ]
     
-    # Initialize router
-    router = ConversationRouter(llm)
+    # Initialize router and pass the tools
+    router = ConversationRouter(llm, tools=tools)
     
     # Demo queries
     demo_queries = [
@@ -52,6 +59,7 @@ def run_demo():
             print(f"Response: {response}")
         except Exception as e:
             print(f"Error: {str(e)}")
+
 
 if __name__ == "__main__":
     run_demo()
