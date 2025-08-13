@@ -1,5 +1,5 @@
 # midterm_test_ONG_ENG_SIAN-2450131_BSE
-# DEBUGGING_FINDINGS
+# DEBUGGING_FINDINGS for demo.py
 
 ## Bug #1: Environment variables not loaded
 
