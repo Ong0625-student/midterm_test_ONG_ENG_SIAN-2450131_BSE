@@ -24,7 +24,7 @@ Error/Issue Observed:
 The program could not answer queries like "What's the weather like in Tokyo?" or "Calculate 5 * 3".
 
 **LLM Assistance Used:**
-I asked ChatGPT to check the tools and which ones were missing.
+I check the tools and which ones were missing.
 
 **Root Cause:**
 Only FakeNewsSearchTool() was included. Weather and calculator tools were missing.
@@ -39,3 +39,38 @@ tools = [
     FakeCalculatorTool()
 ]
 ```
+
+## Bug #3: Router did not use tools
+**Error/Issue Observed:**
+Even with tools added, the router did not process weather and calculator queries.
+
+**LLM Assistance Used:**
+I testing how to pass tools to ConversationRouter.
+
+**Root Cause:**
+The router was created with only llm, but it needed the tools too.
+
+**Fix Applied:**
+
+```python
+Edit
+router = ConversationRouter(llm, tools=tools)
+```
+
+## Bug #4: run_mock_demo() not defined
+**Error/Issue Observed:**
+If no GOOGLE_API_KEY was set, the program called run_mock_demo() and crashed.
+
+**LLM Assistance Used:**
+I testing how to fix this missing functions.
+
+**Root Cause:**
+The function run_mock_demo() was not in the script or imported.
+
+Solve:
+
+```python
+Edit
+from mock_demo import run_mock_demo  # Add this if the function exists
+```
+
